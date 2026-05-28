@@ -5,7 +5,204 @@
 </ion-header>
 
 <ion-content>
-  <div class="coming-soon">
-    <p>Landlord registration coming soon.</p>
+
+  <!-- HERO BANNER -->
+  <div class="hero-banner">
+    <p class="hero-eyebrow">FOR LANDLORDS</p>
+    <h1 class="hero-heading">Earn more. Stress less.</h1>
+    <p class="hero-sub">
+      List your property directly with ByPass. No brokers. No hassle.
+      Connect with verified renters and diaspora guests instantly.
+    </p>
   </div>
+
+  <!-- BENEFIT CARDS -->
+  <div class="benefits-row">
+    @for (benefit of benefits; track benefit.title) {
+      <div class="benefit-card">
+        <div class="benefit-icon-circle">
+          <ion-icon [name]="benefit.icon"></ion-icon>
+        </div>
+        <h3 class="benefit-title">{{ benefit.title }}</h3>
+        <p class="benefit-text">{{ benefit.text }}</p>
+      </div>
+    }
+  </div>
+
+  <!-- PEARL RIDGE MANAGED SECTION -->
+  <div class="pearl-ridge-card">
+    <h2 class="pr-heading">Want full management?</h2>
+    <p class="pr-text">
+      Pearl Ridge Properties handles everything — furnishing advice, guest management,
+      cleaning coordination and monthly payouts.
+    </p>
+    <ion-button expand="block" class="btn-whatsapp" (click)="talkToPearlRidge()">
+      <ion-icon slot="start" name="logo-whatsapp"></ion-icon>
+      Talk to Pearl Ridge
+    </ion-button>
+  </div>
+
+  <!-- REGISTRATION FORM -->
+  @if (!submitted) {
+    <div class="form-section">
+      <div class="form-header">
+        <h2 class="form-title">List your property</h2>
+        <p class="form-sub">Free to register. We'll be in touch within 24 hours.</p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <!-- Name -->
+        <div class="field-wrap">
+          <ion-input
+            label="Your Name *"
+            label-placement="stacked"
+            fill="outline"
+            formControlName="name"
+            placeholder="Enter your full name"
+            [class.input-error]="isInvalid('name')"
+          ></ion-input>
+          @if (isInvalid('name')) {
+            <p class="field-error">Name is required</p>
+          }
+        </div>
+
+        <!-- Phone -->
+        <div class="field-wrap">
+          <ion-input
+            label="Phone Number *"
+            label-placement="stacked"
+            fill="outline"
+            type="tel"
+            formControlName="phone"
+            placeholder="+256 700 000 000"
+            [class.input-error]="isInvalid('phone')"
+          ></ion-input>
+          @if (isInvalid('phone')) {
+            <p class="field-error">Phone number is required</p>
+          }
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="field-wrap">
+          <ion-input
+            label="WhatsApp Number *"
+            label-placement="stacked"
+            fill="outline"
+            type="tel"
+            formControlName="whatsapp"
+            placeholder="+256 700 000 000"
+            [class.input-error]="isInvalid('whatsapp')"
+          ></ion-input>
+          <p class="field-hint">We'll contact you here first</p>
+          @if (isInvalid('whatsapp')) {
+            <p class="field-error">WhatsApp number is required</p>
+          }
+        </div>
+
+        <!-- Area -->
+        <div class="field-wrap">
+          <ion-select
+            label="Property Area *"
+            label-placement="stacked"
+            fill="outline"
+            formControlName="area"
+            placeholder="Select area"
+            [class.input-error]="isInvalid('area')"
+          >
+            <ion-select-option value="Najjera">Najjera</ion-select-option>
+            <ion-select-option value="Kyanja">Kyanja</ion-select-option>
+            <ion-select-option value="Ntinda">Ntinda</ion-select-option>
+            <ion-select-option value="Kisaasi">Kisaasi</ion-select-option>
+            <ion-select-option value="Other">Other</ion-select-option>
+          </ion-select>
+          @if (isInvalid('area')) {
+            <p class="field-error">Please select an area</p>
+          }
+        </div>
+
+        <!-- Property Type -->
+        <div class="field-wrap">
+          <ion-select
+            label="Property Type *"
+            label-placement="stacked"
+            fill="outline"
+            formControlName="propertyType"
+            placeholder="Select type"
+            [class.input-error]="isInvalid('propertyType')"
+          >
+            <ion-select-option value="short-stay">Short Stay Furnished</ion-select-option>
+            <ion-select-option value="long-furnished">Long Stay Furnished</ion-select-option>
+            <ion-select-option value="unfurnished">Unfurnished Long Stay</ion-select-option>
+            <ion-select-option value="multiple">I have multiple units</ion-select-option>
+          </ion-select>
+          @if (isInvalid('propertyType')) {
+            <p class="field-error">Please select a property type</p>
+          }
+        </div>
+
+        <!-- Bedrooms -->
+        <div class="field-wrap">
+          <ion-select
+            label="Number of Bedrooms *"
+            label-placement="stacked"
+            fill="outline"
+            formControlName="bedrooms"
+            placeholder="Select"
+            [class.input-error]="isInvalid('bedrooms')"
+          >
+            <ion-select-option value="studio">Studio</ion-select-option>
+            <ion-select-option value="1">1 bed</ion-select-option>
+            <ion-select-option value="2">2 bed</ion-select-option>
+            <ion-select-option value="3">3 bed</ion-select-option>
+            <ion-select-option value="4+">4+ bed</ion-select-option>
+          </ion-select>
+          @if (isInvalid('bedrooms')) {
+            <p class="field-error">Please select number of bedrooms</p>
+          }
+        </div>
+
+        <!-- Notes -->
+        <div class="field-wrap">
+          <ion-textarea
+            label="Additional Notes"
+            label-placement="stacked"
+            fill="outline"
+            formControlName="notes"
+            placeholder="Tell us about your property..."
+            [rows]="3"
+            auto-grow="false"
+          ></ion-textarea>
+        </div>
+
+        <!-- Submit -->
+        <ion-button
+          expand="block"
+          type="submit"
+          class="submit-btn"
+        >
+          Register My Property
+        </ion-button>
+
+      </form>
+    </div>
+  }
+
+  <!-- SUCCESS STATE -->
+  @if (submitted) {
+    <div class="success-state">
+      <ion-icon name="checkmark-circle" class="success-icon"></ion-icon>
+      <h2 class="success-heading">We'll be in touch!</h2>
+      <p class="success-text">
+        Thanks for registering. A Pearl Ridge team member will contact
+        you on WhatsApp within 24 hours.
+      </p>
+      <ion-button expand="block" class="back-btn" (click)="goToBrowse()">
+        Back to Browse
+      </ion-button>
+    </div>
+  }
+
+  <div style="height: 40px"></div>
+
 </ion-content>
