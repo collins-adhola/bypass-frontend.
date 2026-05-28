@@ -15,6 +15,7 @@ import {
   tvOutline,
   restaurantOutline,
   syncOutline,
+  flaskOutline,
   checkmarkCircleOutline,
   logoWhatsapp,
   callOutline,
@@ -51,6 +52,7 @@ export class PropertyDetailPage implements OnInit {
       tvOutline,
       restaurantOutline,
       syncOutline,
+      flaskOutline,
       checkmarkCircleOutline,
       logoWhatsapp,
       callOutline,
@@ -100,6 +102,7 @@ export class PropertyDetailPage implements OnInit {
       'Smart TV': 'tv-outline',
       'Kitchen': 'restaurant-outline',
       'Washing Machine': 'sync-outline',
+      'Water Tank': 'flask-outline',
     };
     return icons[amenity] ?? 'checkmark-circle-outline';
   }

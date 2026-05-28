@@ -11,7 +11,9 @@ import { addIcons } from 'ionicons';
 import {
   locationOutline, logoWhatsapp,
   wifiOutline, waterOutline, carOutline,
-  shieldCheckmarkOutline, flashOutline, checkmarkCircleOutline,
+  shieldCheckmarkOutline, flashOutline,
+  restaurantOutline, flaskOutline,
+  checkmarkCircleOutline,
 } from 'ionicons/icons';
 import { Property, PropertyService } from '../services/property.service';
 
@@ -37,7 +39,9 @@ export class HomePage {
     addIcons({
       locationOutline, logoWhatsapp,
       wifiOutline, waterOutline, carOutline,
-      shieldCheckmarkOutline, flashOutline, checkmarkCircleOutline,
+      shieldCheckmarkOutline, flashOutline,
+      restaurantOutline, flaskOutline,
+      checkmarkCircleOutline,
     });
   }
 
@@ -71,6 +75,8 @@ export class HomePage {
       'Parking': 'car-outline',
       'Security': 'shield-checkmark-outline',
       'Backup Power': 'flash-outline',
+      'Kitchen': 'restaurant-outline',
+      'Water Tank': 'flask-outline',
     };
     return icons[amenity] ?? 'checkmark-circle-outline';
   }

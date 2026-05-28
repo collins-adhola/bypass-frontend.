@@ -5,7 +5,115 @@
 </ion-header>
 
 <ion-content>
-  <div class="coming-soon">
-    <p>Browse page coming soon.</p>
+
+  <!-- Search bar -->
+  <div class="search-wrap">
+    <ion-searchbar
+      [value]="searchText"
+      (ionInput)="onSearch($event)"
+      placeholder="Search by area, e.g. Najjera"
+      animated="true"
+      mode="md"
+    ></ion-searchbar>
   </div>
+
+  <!-- Category filter chips -->
+  <div class="filter-row">
+    <ion-chip [class.chip-active]="activeCategory === 'all'" (click)="setCategory('all')">
+      <ion-label>All</ion-label>
+    </ion-chip>
+    <ion-chip [class.chip-active]="activeCategory === 'short-stay'" (click)="setCategory('short-stay')">
+      <ion-label>Short Stay</ion-label>
+    </ion-chip>
+    <ion-chip [class.chip-active]="activeCategory === 'long-furnished'" (click)="setCategory('long-furnished')">
+      <ion-label>Long Stay</ion-label>
+    </ion-chip>
+    <ion-chip [class.chip-active]="activeCategory === 'unfurnished'" (click)="setCategory('unfurnished')">
+      <ion-label>Unfurnished</ion-label>
+    </ion-chip>
+  </div>
+
+  <!-- Area filter chips -->
+  <div class="filter-row area-row">
+    @for (area of areas; track area) {
+      <ion-chip [class.chip-active]="activeArea === area" (click)="setArea(area)">
+        <ion-label>{{ area === 'all' ? 'All Areas' : area }}</ion-label>
+      </ion-chip>
+    }
+  </div>
+
+  <!-- Results header -->
+  <div class="results-header">
+    <span class="results-count">
+      {{ sortedProperties.length }}
+      {{ sortedProperties.length === 1 ? 'property' : 'properties' }} found
+    </span>
+    <select class="sort-select" (change)="onSortChange($event)">
+      <option value="newest">Newest</option>
+      <option value="price-asc">Price: Low–High</option>
+      <option value="price-desc">Price: High–Low</option>
+    </select>
+  </div>
+
+  <!-- Property list -->
+  @for (property of sortedProperties; track property.id) {
+    <ion-card class="property-card" button (click)="viewProperty(property.id)">
+
+      <div class="card-image-wrap">
+        <img [src]="property.images[0]" [alt]="property.title" class="card-img">
+        <span class="bypass-badge" [ngClass]="property.category">
+          {{ badgeLabel(property.category) }}
+        </span>
+        @if (property.managed) {
+          <span class="managed-pill">Pearl Ridge</span>
+        }
+      </div>
+
+      <ion-card-content>
+        <h2 class="prop-title">{{ property.title }}</h2>
+
+        <div class="prop-meta">
+          <ion-icon name="location-outline"></ion-icon>
+          <span>{{ property.location }}</span>
+          <span class="sep">·</span>
+          <span>{{ property.bedrooms }} bed · {{ property.bathrooms }} bath</span>
+        </div>
+
+        <div class="prop-price">
+          <span class="price-text">{{ formatPrice(property) }}</span>
+          <span class="price-period"> / {{ property.period }}</span>
+        </div>
+
+        @if (property.availableFrom) {
+          <p class="availability-pill">Available from {{ property.availableFrom }}</p>
+        }
+
+        <div class="amenities-row">
+          @for (amenity of property.amenities.slice(0, 3); track amenity) {
+            <div class="amenity-tag">
+              <ion-icon [name]="amenityIcon(amenity)"></ion-icon>
+              <span>{{ amenity }}</span>
+            </div>
+          }
+        </div>
+
+        <ion-button
+          expand="block"
+          class="bypass-btn-whatsapp"
+          (click)="openWhatsApp($event, property.whatsapp)"
+        >
+          <ion-icon slot="start" name="logo-whatsapp"></ion-icon>
+          Enquire on WhatsApp
+        </ion-button>
+      </ion-card-content>
+
+    </ion-card>
+  } @empty {
+    <div class="empty-state">
+      <ion-icon name="search-outline" class="empty-icon"></ion-icon>
+      <p class="empty-title">No properties found</p>
+      <p class="empty-sub">No properties found in this area yet.<br>More listings coming soon.</p>
+    </div>
+  }
+
 </ion-content>
