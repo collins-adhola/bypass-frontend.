@@ -28,4 +28,11 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'property/:id',
+    loadComponent: () =>
+      import('./property-detail/property-detail.page').then(
+        (m) => m.PropertyDetailPage
+      ),
+  },
 ];

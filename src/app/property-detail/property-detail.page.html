@@ -1,0 +1,140 @@
+<!-- PHOTO GALLERY — sits above ion-content, no header -->
+<div class="gallery-container">
+  <div class="gallery" #gallery (scroll)="onGalleryScroll($event)">
+    @for (img of property.images; track $index) {
+      <div class="gallery-slide">
+        <img [src]="img" [alt]="property.title">
+      </div>
+    }
+  </div>
+
+  <!-- Back button -->
+  <button class="back-btn" (click)="goBack()" aria-label="Go back">
+    <ion-icon name="chevron-back-outline"></ion-icon>
+  </button>
+
+  <!-- Pearl Ridge badge -->
+  @if (property.managed) {
+    <span class="gallery-managed-pill">Pearl Ridge</span>
+  }
+
+  <!-- Dot indicators -->
+  @if (property.images.length > 1) {
+    <div class="gallery-dots">
+      @for (img of property.images; track $index; let i = $index) {
+        <span class="dot" [class.active]="currentImageIndex === i"></span>
+      }
+    </div>
+  }
+</div>
+
+<!-- SCROLLABLE DETAIL CONTENT -->
+<ion-content class="detail-scroll">
+
+  <!-- Property header -->
+  <div class="prop-header">
+    <div class="title-row">
+      <h1 class="prop-title">{{ property.title }}</h1>
+      <span class="bypass-badge" [ngClass]="property.category">
+        {{ badgeLabel(property.category) }}
+      </span>
+    </div>
+    <div class="meta-row">
+      <ion-icon name="location-outline"></ion-icon>
+      <span>{{ property.location }}</span>
+      <span class="sep">·</span>
+      <span>{{ property.bedrooms }} bed</span>
+      <span class="sep">·</span>
+      <span>{{ property.bathrooms }} bath</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Pricing -->
+  <div class="section pricing-section">
+    <div class="price-row">
+      <span class="price-amount">{{ formatPrice() }}</span>
+      <span class="price-per"> / {{ property.period }}</span>
+    </div>
+    @if (property.availableFrom) {
+      <span class="avail-pill">Available from {{ property.availableFrom }}</span>
+    }
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Description -->
+  <div class="section">
+    <h2 class="section-label">About this property</h2>
+    <p class="description-text">{{ displayDescription }}</p>
+    @if (isLongDescription) {
+      <button class="toggle-desc" (click)="descriptionExpanded = !descriptionExpanded">
+        {{ descriptionExpanded ? 'Show less' : 'Show more' }}
+      </button>
+    }
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Amenities -->
+  <div class="section">
+    <h2 class="section-label">Amenities</h2>
+    <div class="amenities-grid">
+      @for (amenity of property.amenities; track amenity) {
+        <div class="amenity-item">
+          <ion-icon [name]="amenityIcon(amenity)"></ion-icon>
+          <span>{{ amenity }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Location -->
+  <div class="section">
+    <h2 class="section-label">Location</h2>
+    <div class="location-block">
+      <ion-icon name="location-outline" class="loc-icon"></ion-icon>
+      <div>
+        <p class="loc-area">{{ property.area }}</p>
+        <p class="loc-corridor">Kyanja · Najjera · Ntinda Corridor, Kampala</p>
+        <p class="loc-note">Address shared upon enquiry</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Managed By -->
+  @if (property.managed) {
+    <div class="divider"></div>
+    <div class="section">
+      <h2 class="section-label">Managed by</h2>
+      <div class="managed-card">
+        <div class="managed-logo-block">
+          <span class="managed-logo-text">Pearl Ridge</span>
+        </div>
+        <div class="managed-info">
+          <p class="managed-name">Pearl Ridge Properties</p>
+          <p class="managed-sub">Verified listing · Trusted management</p>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Spacer so content clears the sticky action bar -->
+  <div class="bottom-spacer"></div>
+
+</ion-content>
+
+<!-- STICKY ACTION BAR -->
+<div class="action-bar">
+  <ion-button class="btn-whatsapp" (click)="openWhatsApp()">
+    <ion-icon slot="start" name="logo-whatsapp"></ion-icon>
+    WhatsApp
+  </ion-button>
+  <ion-button class="btn-call" fill="outline" (click)="call()">
+    <ion-icon slot="start" name="call-outline"></ion-icon>
+    Call Us
+  </ion-button>
+</div>
