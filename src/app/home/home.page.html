@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <span class="logo-text">ByPass</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Hero -->
+  <div class="hero">
+    <p class="hero-eyebrow">Kampala · Kyanja – Ntinda Corridor</p>
+    <h1 class="hero-heading">Find your perfect space.</h1>
+    <p class="hero-tagline">Skip the broker. Find your home.</p>
+  </div>
+
+  <!-- Filter chips -->
+  <div class="filter-row">
+    <ion-chip [class.chip-active]="activeFilter === 'all'" (click)="setFilter('all')">
+      <ion-label>All</ion-label>
+    </ion-chip>
+    <ion-chip [class.chip-active]="activeFilter === 'short-stay'" (click)="setFilter('short-stay')">
+      <ion-label>Short Stay</ion-label>
+    </ion-chip>
+    <ion-chip [class.chip-active]="activeFilter === 'long-furnished'" (click)="setFilter('long-furnished')">
+      <ion-label>Long Stay</ion-label>
+    </ion-chip>
+    <ion-chip [class.chip-active]="activeFilter === 'unfurnished'" (click)="setFilter('unfurnished')">
+      <ion-label>Unfurnished</ion-label>
+    </ion-chip>
+  </div>
+
+  <!-- Section header -->
+  <div class="section-header">
+    <p class="section-title">Featured Properties</p>
+    <p class="section-subtitle">
+      {{ filteredProperties.length }} listing{{ filteredProperties.length !== 1 ? 's' : '' }} available
+    </p>
+  </div>
+
+  <!-- Property cards -->
+  @for (property of filteredProperties; track property.id) {
+    <ion-card class="property-card">
+
+      <div class="card-image-wrap">
+        <img [src]="property.images[0]" [alt]="property.title" class="card-img">
+        <span class="bypass-badge" [ngClass]="property.category">
+          {{ badgeLabel(property.category) }}
+        </span>
+        @if (property.managed) {
+          <span class="managed-pill">Pearl Ridge</span>
+        }
+      </div>
+
+      <ion-card-content>
+        <h2 class="prop-title">{{ property.title }}</h2>
+
+        <div class="prop-meta">
+          <ion-icon name="location-outline"></ion-icon>
+          <span>{{ property.location }}</span>
+          <span class="meta-dot">·</span>
+          <span>{{ property.bedrooms }} bed · {{ property.bathrooms }} bath</span>
+        </div>
+
+        <div class="prop-price">
+          <span class="price-text">{{ formatPrice(property) }}</span>
+          <span class="price-period"> / {{ property.period }}</span>
+        </div>
+
+        @if (property.availableFrom) {
+          <p class="availability-pill">Available from {{ property.availableFrom }}</p>
+        }
+
+        <div class="amenities-row">
+          @for (amenity of property.amenities.slice(0, 3); track amenity) {
+            <div class="amenity-tag">
+              <ion-icon [name]="amenityIcon(amenity)"></ion-icon>
+              <span>{{ amenity }}</span>
+            </div>
+          }
+        </div>
+
+        <ion-button expand="block" class="bypass-btn-whatsapp"
+          (click)="openWhatsApp(property.whatsapp)">
+          <ion-icon slot="start" name="logo-whatsapp"></ion-icon>
+          Enquire on WhatsApp
+        </ion-button>
+      </ion-card-content>
+
+    </ion-card>
+  } @empty {
+    <div class="empty-state">
+      <p>No properties in this category yet — check back soon.</p>
+    </div>
+  }
+
+  <!-- CTA banner -->
+  <div class="cta-banner">
+    <h3 class="cta-title">Are you a landlord?</h3>
+    <p class="cta-body">
+      List with Pearl Ridge Properties and connect directly with verified renters — no brokers involved.
+    </p>
+    <ion-button expand="block" class="cta-btn" routerLink="/landlords">
+      Get Listed Free
+    </ion-button>
+  </div>
+
+</ion-content>

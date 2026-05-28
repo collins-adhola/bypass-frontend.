@@ -1,37 +1,114 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
-
-/* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
-
-/* Basic CSS for apps built with Ionic */
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
-
-/* Optional CSS utils that can be commented out */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap');
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+* {
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+ion-content {
+  --background: var(--bypass-background);
+}
+
+ion-toolbar {
+  --background: var(--bypass-primary);
+  --color: #ffffff;
+  --border-width: 0;
+}
+
+ion-tab-bar {
+  --background: #ffffff;
+  border-top: 1px solid var(--bypass-border);
+  height: 64px;
+  padding-bottom: 4px;
+}
+
+ion-tab-button {
+  --color: var(--bypass-text-muted);
+  --color-selected: var(--bypass-primary);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+ion-card {
+  --background: var(--bypass-card);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(124, 58, 237, 0.08);
+  border: 1px solid var(--bypass-border);
+  margin: 0 0 16px 0;
+}
+
+.bypass-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+
+  &.short-stay {
+    background: rgba(124, 58, 237, 0.12);
+    color: var(--bypass-primary);
+  }
+  &.long-furnished {
+    background: rgba(14, 165, 233, 0.12);
+    color: #0EA5E9;
+  }
+  &.unfurnished {
+    background: rgba(107, 114, 128, 0.12);
+    color: var(--bypass-text-muted);
+  }
+}
+
+.bypass-btn-primary {
+  --background: var(--bypass-primary);
+  --background-activated: #6D33D4;
+  --color: #ffffff;
+  --border-radius: 12px;
+  font-weight: 600;
+  height: 48px;
+}
+
+.bypass-btn-whatsapp {
+  --background: #25D366;
+  --background-activated: #1fb556;
+  --color: #ffffff;
+  --border-radius: 12px;
+  font-weight: 600;
+  height: 48px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--bypass-text);
+  margin: 0 0 4px 0;
+}
+
+.section-subtitle {
+  font-size: 13px;
+  color: var(--bypass-text-muted);
+  margin: 0 0 16px 0;
+}
+
+.price-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--bypass-primary);
+}
+
+.price-period {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--bypass-text-muted);
+}
