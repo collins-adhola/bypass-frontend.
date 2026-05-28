@@ -1,10 +1,10 @@
 // Logo in toolbar
 .logo-text {
-  color: var(--bypass-accent);
-  font-family: 'DM Serif Display', serif;
-  font-size: 22px;
-  font-weight: 400;
-  letter-spacing: 0.5px;
+  color: #FDE68A;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0;
 }
 
 // Hero section flows seamlessly from the violet toolbar
@@ -13,28 +13,57 @@
   color: #fff;
   padding: 20px 20px 32px;
 
-  .hero-eyebrow {
+  .hero-descriptor {
     font-size: 11px;
-    letter-spacing: 1px;
+    font-weight: 400;
+    color: #FDE68A;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.65);
-    margin: 0 0 8px;
+    display: block;
+    margin: 0 0 12px;
   }
 
-  .hero-heading {
-    font-size: 26px;
-    font-weight: 600;
-    line-height: 1.2;
-    color: #fff;
-    margin: 0 0 6px;
+  .hero-areas {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 12px;
+
+    span {
+      opacity: 0;
+      animation: areaReveal 0.4s ease-out both;
+    }
+
+    .area-1 { animation-delay: 0.1s; }
+    .area-2 { animation-delay: 0.3s; }
+    .area-3 { animation-delay: 0.5s; }
+    .area-4 { animation-delay: 0.7s; }
+    .area-5 { animation-delay: 0.9s; }
+    .area-6 { animation-delay: 1.1s; }
   }
 
   .hero-tagline {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--bypass-accent);
+    font-size: 15px;
+    font-weight: 600;
+    color: #FDE68A;
     margin: 0;
+    opacity: 0;
+    animation: slideUpFade 0.5s ease-out 1.8s both;
   }
+}
+
+@keyframes areaReveal {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 // Horizontal scrolling filter row

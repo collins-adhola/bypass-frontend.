@@ -13,7 +13,7 @@ import {
   wifiOutline, waterOutline, carOutline,
   shieldCheckmarkOutline, flashOutline,
   restaurantOutline, flaskOutline,
-  checkmarkCircleOutline,
+  checkmarkCircleOutline, home,
 } from 'ionicons/icons';
 import { Property, PropertyService } from '../services/property.service';
 
@@ -41,7 +41,7 @@ export class HomePage {
       wifiOutline, waterOutline, carOutline,
       shieldCheckmarkOutline, flashOutline,
       restaurantOutline, flaskOutline,
-      checkmarkCircleOutline,
+      checkmarkCircleOutline, home,
     });
   }
 
